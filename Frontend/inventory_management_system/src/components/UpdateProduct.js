@@ -36,7 +36,7 @@ export default function InsertProduct() {
       
             const data = await res.json();
       
-            if (res.status === 201) {
+            if (res.status === 200) {
               console.log("Data Retrieved.");
               setProductName(data.ProductName);
               setProductPrice(data.ProductPrice);
