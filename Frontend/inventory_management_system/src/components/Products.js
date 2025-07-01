@@ -12,7 +12,7 @@ export default function Products() {
     const getProducts = async (e) => {
 
         try {
-            const res = await fetch("https://backend-2oh4.onrender.com/api/products", {
+            const res = await fetch("https://backend-2oh4.onrender.com/products", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
