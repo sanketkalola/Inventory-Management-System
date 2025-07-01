@@ -10,9 +10,13 @@ const port = process.env.PORT || 3001;
 const cors = require('cors');
 const router = require('./Routes/router');
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://inventory-management-system7.onrender.com', 
+  credentials: true
+}));
+
 app.use(express.json());
-app.use(router);
+app.use('/api', router); 
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
