@@ -12,7 +12,7 @@ export default function Products() {
     const getProducts = async (e) => {
 
         try {
-            const res = await fetch("https://backend-fe2u.onrender.com/products", {
+            const res = await fetch("https://backend-2oh4.onrender.com/products", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
@@ -35,7 +35,7 @@ export default function Products() {
 
     const deleteProduct = async (id) => {
 
-        const response = await fetch(`https://backend-fe2u.onrender.com/deleteproduct/${id}`, {
+        const response = await fetch(`https://backend-2oh4.onrender.com/deleteproduct/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

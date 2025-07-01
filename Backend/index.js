@@ -12,11 +12,11 @@ const router = require('./Routes/router');
 
 app.use(cors({
   origin: [
-    'https://inventory-management-system7.onrender.com',  // Production
-    'http://localhost:3000',  // Local development
-    'http://127.0.0.1:3000'   // Alternative local
-  ], 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    'http://localhost:3000',                             // ← your React dev server
+    'https://inventory-management-system7.onrender.com'  // ← your deployed frontend, if needed
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
