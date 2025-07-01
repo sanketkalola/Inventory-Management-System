@@ -2,6 +2,10 @@
 
 A simple MERN project that lets the user insert, update, delete & get products from the MongoDB.
 
+
+
+[Live Demo](https://inventory-management-system7.onrender.com)
+
 ## To Run App:
 
 ### 1. Open the folder in vs code and run (npm install) command.
