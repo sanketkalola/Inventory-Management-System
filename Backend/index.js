@@ -26,7 +26,7 @@ app.use(cors({
 app.use(express.json());
 
 // ✅ Route prefix
-app.use('./', router);
+app.use('/', router);
 
 // ✅ Default route to test
 app.get('/', (req, res) => {
