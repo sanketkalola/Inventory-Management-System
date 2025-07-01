@@ -3,7 +3,7 @@ const router = express.Router();
 const products = require('../Models/Products');
 
 // Inserting (Creating) Data
-router.post("api/insertproduct", async (req, res) => {
+router.post("/api/insertproduct", async (req, res) => {
     const { ProductName, ProductPrice, ProductBarcode } = req.body;
     console.log("Request Body:", req.body);
 
