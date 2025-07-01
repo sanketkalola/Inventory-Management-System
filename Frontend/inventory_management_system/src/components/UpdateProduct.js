@@ -34,18 +34,20 @@ export default function InsertProduct() {
         }
       });
 
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+
       const data = await res.json();
 
-      if (res.status === 200) {  // <-- changed here
-        console.log("Data Retrieved.");
-        setProductName(data.ProductName);
-        setProductPrice(data.ProductPrice);
-        setProductBarcode(data.ProductBarcode);
-      } else {
-        console.log("Something went wrong. Please try again.");
-      }
+      setProductName(data.ProductName);
+      setProductPrice(data.ProductPrice);
+      setProductBarcode(data.ProductBarcode);
+
+      console.log("Data Retrieved.");
     } catch (err) {
-      console.log(err);
+      console.error("Fetch error:", err);
+      setError("Failed to load product data.");
     }
   };
 
@@ -69,20 +71,20 @@ const updateProduct = async (e) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ "ProductName": productName, "ProductPrice": productPrice, "ProductBarcode": productBarcode })
+      body: JSON.stringify({ ProductName: productName, ProductPrice: productPrice, ProductBarcode: productBarcode }),
     });
+
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.status}`);
+    }
 
     await response.json();
 
-    if (response.status === 200) {  // <-- changed here
-      alert("Data Updated");
-      navigate('/products');
-    } else {
-      setError("Something went wrong. Please try again.");
-    }
+    alert("Data Updated");
+    navigate('/products');
   } catch (err) {
+    console.error("Update error:", err);
     setError("An error occurred. Please try again later.");
-    console.log(err);
   } finally {
     setLoading(false);
   }
