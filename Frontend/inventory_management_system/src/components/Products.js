@@ -21,7 +21,7 @@ export default function Products() {
 
             const data = await res.json();
 
-            if (res.status === 20) {
+            if (res.status === 200) {
                 console.log("Data Retrieved.");
                 setProductData(data);
             }
