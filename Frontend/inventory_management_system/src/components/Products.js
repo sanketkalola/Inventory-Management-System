@@ -10,7 +10,6 @@ export default function Products() {
     const [productData, setProductData] = useState([]);
 
     const getProducts = async (e) => {
-
         try {
             const res = await fetch("https://backend-2oh4.onrender.com/api/products", {
                 method: "GET",
@@ -19,17 +18,15 @@ export default function Products() {
                 }
             });
 
-            const data = await res.json();
+            if (!res.ok) {
+                throw new Error(`Server error: ${res.status}`);
+            }
 
-            if (res.status === 200) {
-                console.log("Data Retrieved.");
-                setProductData(data);
-            }
-            else {
-                console.log("Something went wrong. Please try again.");
-            }
+            const data = await res.json();
+            setProductData(data);
         } catch (err) {
-            console.log(err);
+            console.error("Fetch error:", err);
+            setError("Failed to load products.");
         }
     }
 
