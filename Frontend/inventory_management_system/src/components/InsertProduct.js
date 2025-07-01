@@ -3,11 +3,11 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function InsertProduct() {
     const [productName, setProductName] = useState("");
-    const [productPrice, setProductPrice] = useState();
-    const [productBarcode, setProductBarcode] = useState();
+    const [productPrice, setProductPrice] = useState("");
+    const [productBarcode, setProductBarcode] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const navigate = useNavigate("");
+    const navigate = useNavigate();
 
     const setName = (e) => {
         setProductName(e.target.value);
@@ -34,25 +34,36 @@ export default function InsertProduct() {
         setError("");
 
         try {
-            const res = await fetch("https://backend-fe2u.onrender.com/insertproduct", {
+            // Changed to use local backend
+            const res = await fetch("http://localhost:3001/api/insertproduct", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ "ProductName": productName, "ProductPrice": productPrice, "ProductBarcode": productBarcode })
+                body: JSON.stringify({ 
+                    "ProductName": productName, 
+                    "ProductPrice": productPrice, 
+                    "ProductBarcode": productBarcode 
+                })
             });
 
-            await res.json();
+            const data = await res.json();
 
             if (res.status === 201) {
                 alert("Data Inserted");
                 setProductName("");
-                setProductPrice(0);
-                setProductBarcode(0);
+                setProductPrice("");
+                setProductBarcode("");
                 navigate('/products');
             }
             else if (res.status === 422) {
                 alert("Product is already added with that barcode.");
+            }
+            else if (res.status === 400) {
+                setError(`Bad Request: ${data.error}`);
+            }
+            else if (res.status === 500) {
+                setError(`Server Error: ${data.error}`);
             }
             else {
                 setError("Something went wrong. Please try again.");
@@ -90,4 +101,4 @@ export default function InsertProduct() {
             </div>
         </div>
     )
-}
+};

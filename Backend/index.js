@@ -11,7 +11,12 @@ const cors = require('cors');
 const router = require('./Routes/router');
 
 app.use(cors({
-  origin: 'https://inventory-management-system7.onrender.com', 
+  origin: [
+    'https://inventory-management-system7.onrender.com',  // Production
+    'http://localhost:3000',  // Local development
+    'http://127.0.0.1:3000'   // Alternative local
+  ], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
 
