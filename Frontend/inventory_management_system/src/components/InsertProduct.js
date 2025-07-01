@@ -23,58 +23,55 @@ export default function InsertProduct() {
     };
 
     const addProduct = async (e) => {
-        e.preventDefault();
+  e.preventDefault();
 
-        if (!productName || !productPrice || !productBarcode) {
-            setError("*Please fill in all the required fields.");
-            return;
-        }
+  if (!productName || !productPrice || !productBarcode) {
+    setError("*Please fill in all the required fields.");
+    return;
+  }
 
-        setLoading(true);
-        setError("");
+  setLoading(true);
+  setError("");
 
-        try {
-            // Changed to use local backend
-            const res = await fetch("https://backend-2oh4.onrender.com/api/insertproduct", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ 
-                    "ProductName": productName, 
-                    "ProductPrice": productPrice, 
-                    "ProductBarcode": productBarcode 
-                })
-            });
+  try {
+    const res = await fetch("https://backend-2oh4.onrender.com/api/insertproduct", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        ProductName: productName,
+        ProductPrice: productPrice,
+        ProductBarcode: productBarcode
+      })
+    });
 
-            const data = await res.json();
+    const data = await res.json();
 
-            if (res.status === 201) {
-                alert("Data Inserted");
-                setProductName("");
-                setProductPrice("");
-                setProductBarcode("");
-                navigate('/products');
-            }
-            else if (res.status === 422) {
-                alert("Product is already added with that barcode.");
-            }
-            else if (res.status === 400) {
-                setError(`Bad Request: ${data.error}`);
-            }
-            else if (res.status === 500) {
-                setError(`Server Error: ${data.error}`);
-            }
-            else {
-                setError("Something went wrong. Please try again.");
-            }
-        } catch (err) {
-            setError("An error occurred. Please try again later.");
-            console.log(err);
-        } finally {
-            setLoading(false);
-        }
+    if (res.status === 201) {
+      alert("Data Inserted");
+      setProductName("");
+      setProductPrice("");
+      setProductBarcode("");
+      navigate('/products');
+    } else if (res.status === 422) {
+      // ✅ Display backend message
+      setError(data.error || "Product with this barcode already exists.");
+    } else if (res.status === 400) {
+      setError(`Bad Request: ${data.error}`);
+    } else if (res.status === 500) {
+      setError(`Server Error: ${data.error}`);
+    } else {
+      setError("Something went wrong. Please try again.");
     }
+  } catch (err) {
+    setError("An error occurred. Please try again later.");
+    console.log(err);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
     return (
         <div className='container-fluid p-5'>
