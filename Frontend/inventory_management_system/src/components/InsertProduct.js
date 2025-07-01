@@ -35,7 +35,7 @@ export default function InsertProduct() {
 
         try {
             // Changed to use local backend
-            const res = await fetch("http://localhost:3001/api/insertproduct", {
+            const res = await fetch("https://backend-fe2u.onrender.com/api/insertproduct", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

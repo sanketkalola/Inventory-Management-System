@@ -5,13 +5,17 @@ const products = require('../Models/Products');
 // Inserting (Creating) Data
 router.post("/insertproduct", async (req, res) => {
     const { ProductName, ProductPrice, ProductBarcode } = req.body;
+    console.log("Request Body:", req.body);
 
     if (!ProductName || !ProductPrice || !ProductBarcode) {
+        console.log("Missing fields");
         return res.status(400).json({ error: "Missing required fields" });
     }
 
     try {
         const existingProduct = await products.findOne({ ProductBarcode });
+        console.log("Existing Product?", existingProduct);
+
         if (existingProduct) {
             return res.status(422).json({ error: "Product is already added." });
         }
@@ -26,6 +30,7 @@ router.post("/insertproduct", async (req, res) => {
         return res.status(500).json({ error: "Internal server error" });
     }
 });
+
 
 // Getting (Reading) All Products
 router.get('/products', async (req, res) => {
