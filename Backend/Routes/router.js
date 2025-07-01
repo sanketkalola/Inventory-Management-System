@@ -33,7 +33,7 @@ router.post("/api/insertproduct", async (req, res) => {
 
 
 // Getting (Reading) All Products
-router.get('/products', async (req, res) => {
+router.get('/api/products', async (req, res) => {
     try {
         const getProducts = await products.find({});
         console.log("All Products:", getProducts);
@@ -46,7 +46,7 @@ router.get('/products', async (req, res) => {
 });
 
 // Getting (Reading) Individual Product by ID
-router.get('/products/:id', async (req, res) => {
+router.get('/api/products/:id', async (req, res) => {
     try {
         const getProduct = await products.findById(req.params.id);
 
@@ -63,7 +63,7 @@ router.get('/products/:id', async (req, res) => {
 });
 
 // Editing (Updating) Product
-router.put('/updateproduct/:id', async (req, res) => {
+router.put('/api/updateproduct/:id', async (req, res) => {
     const { ProductName, ProductPrice, ProductBarcode } = req.body;
 
     if (!ProductName || !ProductPrice || !ProductBarcode) {
