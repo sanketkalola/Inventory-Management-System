@@ -1,28 +1,38 @@
-require('dotenv').config();  // load env variables
-
-const connectToMongo = require('./db');
-connectToMongo();
+require('dotenv').config(); // Loads .env
 
 const express = require('express');
+const cors = require('cors');
+const connectToMongo = require('./db');
+const router = require('./Routes/router');
+
 const app = express();
 const port = process.env.PORT || 3001;
 
-const cors = require('cors');
-const router = require('./Routes/router');
+// ✅ Connect to MongoDB
+connectToMongo();
 
+// ✅ Enable CORS for frontend domains
 app.use(cors({
   origin: [
-    'http://localhost:3000',                             // ← your React dev server
-    'https://inventory-management-system7.onrender.com'  // ← your deployed frontend, if needed
+    'http://localhost:3000',
+    'https://inventory-management-system7.onrender.com' // your frontend
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type'],
   credentials: true
 }));
 
+// ✅ Parse JSON
 app.use(express.json());
-app.use('/api', router); 
+
+// ✅ Route prefix
+app.use('/api', router);
+
+// ✅ Default route to test
+app.get('/', (req, res) => {
+  res.send('Backend running');
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
