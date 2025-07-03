@@ -13,10 +13,13 @@ connectToMongo();
 
 // Enable CORS
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://inventory-management-system-jt6k.onrender.com'
-  ],
+  // origin: [
+  //   'http://localhost:3000',
+  //   'https://inventory-management-system-jt6k.onrender.com'
+  // ],
+  origin: (origin, callback) => {
+    callback(null, true); // allow all origins dynamically
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
   credentials: true
