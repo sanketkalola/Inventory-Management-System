@@ -36,6 +36,7 @@ export default function InsertProduct() {
   try {
     const res = await fetch("https://backend-5340.onrender.com/api/insertproduct", {
       method: "POST",
+      mode: "cors",
       headers: {
         "Content-Type": "application/json"
       },
