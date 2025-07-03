@@ -3,7 +3,7 @@ const router = express.Router();
 const products = require('../Models/Products');
 
 // Create a product
-router.post("api/products/insertproduct", async (req, res) => {
+router.post("/products/insertproduct", async (req, res) => {
     const { ProductName, ProductPrice, ProductBarcode } = req.body;
     if (!ProductName || !ProductPrice || !ProductBarcode) {
         return res.status(400).json({ error: "Missing required fields" });
