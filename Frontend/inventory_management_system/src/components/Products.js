@@ -15,10 +15,12 @@ export default function Products() {
       setLoading(true);
       const res = await fetch("https://backend-5340.onrender.com/api/products", {
         method: "GET",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json"
         }
       });
+      console.log(res)
 
       if (!res.ok) {
         throw new Error(`Server error: ${res.status}`);
