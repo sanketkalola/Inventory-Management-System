@@ -15,7 +15,7 @@ connectToMongo();
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://inventory-management-system7.onrender.com' // your frontend
+    'https://inventory-management-system-jt6k.onrender.com' // your frontend
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
