@@ -42,7 +42,7 @@ export default function Products() {
 
     try {
       // Fixed URL - added /products before /deleteproduct
-      const response = await fetch(`https://backend-5340.onrender.com/api/products/deleteproduct/${id}`, {
+      const response = await fetch(`https://inventory-management-system-jt6k.onrender.com/api/products/deleteproduct/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
