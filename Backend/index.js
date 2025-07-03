@@ -25,8 +25,8 @@ app.use(cors({
 // Parse JSON requests
 app.use(express.json());
 
-// MOUNT the products router on /api/products
-app.use('/api/products', productsRouter);
+// MOUNT the products router on /api (changed from /api/products)
+app.use('/api', productsRouter);
 
 // Test route
 app.get('/', (req, res) => {
