@@ -3,7 +3,7 @@ const router = express.Router();
 const products = require('../Models/Products');
 
 // Inserting (Creating) Data
-router.post("/insertproduct", async (req, res) => {
+router.post("/products/insertproduct", async (req, res) => {
     const { ProductName, ProductPrice, ProductBarcode } = req.body;
     console.log("Request Body:", req.body);
 
@@ -33,7 +33,7 @@ router.post("/insertproduct", async (req, res) => {
 
 
 // Getting (Reading) All Products
-router.get('/', async (req, res) => {
+router.get('/products', async (req, res) => {
     try {
         const getProducts = await products.find({});
         console.log("All Products:", getProducts);
@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
 });
 
 // Getting (Reading) Individual Product by ID
-router.get('/:id', async (req, res) => {
+router.get('/products:id', async (req, res) => {
     try {
         const getProduct = await products.findById(req.params.id);
 
@@ -63,7 +63,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Editing (Updating) Product
-router.put('/updateproduct/:id', async (req, res) => {
+router.put('/products/updateproduct/:id', async (req, res) => {
     const { ProductName, ProductPrice, ProductBarcode } = req.body;
 
     if (!ProductName || !ProductPrice || !ProductBarcode) {
@@ -90,7 +90,7 @@ router.put('/updateproduct/:id', async (req, res) => {
 });
 
 // Deleting Product
-router.delete('/deleteproduct/:id', async (req, res) => {
+router.delete('/products/deleteproduct/:id', async (req, res) => {
     try {
         const deletedProduct = await products.findByIdAndDelete(req.params.id);
 
