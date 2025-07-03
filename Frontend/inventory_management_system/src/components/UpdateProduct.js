@@ -14,7 +14,7 @@ export default function InsertProduct() {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await fetch("https://backend-5340.onrender.com/api/products/${id}", {
+        const res = await fetch("https://backend-5340.onrender.com/api/products/:{id}", {
           method: "GET",
           headers: {
             "Content-Type": "application/json"
