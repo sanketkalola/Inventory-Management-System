@@ -55,7 +55,7 @@ export default function InsertProduct() {
     setError("");
 
     try {
-      const response = await fetch("https://backend-5340.onrender.com/products/updateproduct/${id}", {
+      const response = await fetch("https://backend-5340.onrender.com/api/products/updateproduct/${id}", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
