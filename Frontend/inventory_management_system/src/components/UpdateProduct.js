@@ -14,7 +14,7 @@ export default function InsertProduct() {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await fetch(`https://backend-2oh4.onrender.com/api/products/${id}`, {
+        const res = await fetch(`https://backend-mykt.onrender.com/api/products/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json"
@@ -55,7 +55,7 @@ export default function InsertProduct() {
     setError("");
 
     try {
-      const response = await fetch(`https://backend-2oh4.onrender.com/api/updateproduct/${id}`, {
+      const response = await fetch(`https://backend-mykt.onrender.com/api/updateproduct/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
