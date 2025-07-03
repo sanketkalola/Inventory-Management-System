@@ -3,7 +3,8 @@ import { NavLink } from 'react-router-dom'
 
 export default function Products() {
   const [productData, setProductData] = useState([]);
-  const [error, setError] = useState("");   // <-- Added error state
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getProducts();
@@ -11,6 +12,7 @@ export default function Products() {
 
   const getProducts = async () => {
     try {
+      setLoading(true);
       const res = await fetch("https://backend-5340.onrender.com/api/products", {
         method: "GET",
         headers: {
@@ -24,16 +26,23 @@ export default function Products() {
 
       const data = await res.json();
       setProductData(data);
-      setError("");  // clear error if successful
+      setError("");
     } catch (err) {
       console.error("Fetch error:", err);
-      setError("Failed to load products.");
+      setError("Failed to load products. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const deleteProduct = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this product?")) {
+      return;
+    }
+
     try {
-      const response = await fetch(`https://backend-5340.onrender.com/api/deleteproduct/${id}`, {
+      // Fixed URL - added /products before /deleteproduct
+      const response = await fetch(`https://backend-5340.onrender.com/api/products/deleteproduct/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"
@@ -45,15 +54,28 @@ export default function Products() {
 
       if (response.status === 422 || !deletedata) {
         console.log("Error deleting product");
+        setError("Failed to delete product.");
       } else {
         console.log("Product deleted");
-        getProducts();
+        getProducts(); // Refresh the product list
       }
     } catch (err) {
       console.error("Delete error:", err);
       setError("Failed to delete product.");
     }
   };
+
+  if (loading) {
+    return (
+      <div className='container-fluid p-5'>
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='container-fluid p-5'>
@@ -81,24 +103,32 @@ export default function Products() {
             </tr>
           </thead>
           <tbody>
-            {productData.map((element, index) => (
-              <tr key={element._id}>
-                <th scope="row">{index + 1}</th>
-                <td>{element.ProductName}</td>
-                <td>{element.ProductPrice}</td>
-                <td>{element.ProductBarcode}</td>
-                <td>
-                  <NavLink to={`/updateproduct/${element._id}`} className="btn btn-primary">
-                    <i className="fa-solid fa-pen-to-square"></i>
-                  </NavLink>
-                </td>
-                <td>
-                  <button className="btn btn-danger" onClick={() => deleteProduct(element._id)}>
-                    <i className="fa-solid fa-trash"></i>
-                  </button>
+            {productData.length > 0 ? (
+              productData.map((element, index) => (
+                <tr key={element._id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{element.ProductName}</td>
+                  <td>{element.ProductPrice}</td>
+                  <td>{element.ProductBarcode}</td>
+                  <td>
+                    <NavLink to={`/updateproduct/${element._id}`} className="btn btn-primary">
+                      <i className="fa-solid fa-pen-to-square"></i>
+                    </NavLink>
+                  </td>
+                  <td>
+                    <button className="btn btn-danger" onClick={() => deleteProduct(element._id)}>
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center">
+                  No products found. <NavLink to="/insertproduct">Add your first product</NavLink>
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
