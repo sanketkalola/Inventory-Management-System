@@ -3,7 +3,7 @@ const router = express.Router();
 const products = require('../Models/Products');
 
 // Create a product
-router.post("/insertproduct", async (req, res) => {
+router.post("/products/insertproduct", async (req, res) => {
     const { ProductName, ProductPrice, ProductBarcode } = req.body;
     if (!ProductName || !ProductPrice || !ProductBarcode) {
         return res.status(400).json({ error: "Missing required fields" });
@@ -23,7 +23,7 @@ router.post("/insertproduct", async (req, res) => {
 });
 
 // Get all products
-router.get('/', async (req, res) => {
+router.get('/products', async (req, res) => {
     try {
         const getProducts = await products.find({});
         return res.status(200).json(getProducts);
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get product by ID
-router.get('/:id', async (req, res) => {
+router.get('/products/:id', async (req, res) => {
     try {
         const getProduct = await products.findById(req.params.id);
         if (!getProduct) {
@@ -46,7 +46,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update product by ID
-router.put('/updateproduct/:id', async (req, res) => {
+router.put('/products/updateproduct/:id', async (req, res) => {
     const { ProductName, ProductPrice, ProductBarcode } = req.body;
     if (!ProductName || !ProductPrice || !ProductBarcode) {
         return res.status(400).json({ error: "Missing required fields" });
@@ -67,7 +67,7 @@ router.put('/updateproduct/:id', async (req, res) => {
 });
 
 // Delete product by ID
-router.delete('/deleteproduct/:id', async (req, res) => {
+router.delete('/products/deleteproduct/:id', async (req, res) => {
     try {
         const deletedProduct = await products.findByIdAndDelete(req.params.id);
         if (!deletedProduct) {
