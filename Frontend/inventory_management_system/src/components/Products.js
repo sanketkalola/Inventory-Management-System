@@ -13,7 +13,7 @@ export default function Products() {
   const getProducts = async () => {
     try {
       setLoading(true);
-      const res = await fetch("https://backend-5340.onrender.com/api/products", {
+      const res = await fetch("https://backend-eizz.onrender.com/api/products", {
         method: "GET",
         mode: "cors",
         headers: {
@@ -44,7 +44,7 @@ export default function Products() {
 
     try {
       // Fixed URL - added /products before /deleteproduct
-      const response = await fetch(`https://backend-5340.onrender.com/api/products/deleteproduct/${id}`, {
+      const response = await fetch(`https://backend-eizz.onrender.com/api/products/deleteproduct/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"

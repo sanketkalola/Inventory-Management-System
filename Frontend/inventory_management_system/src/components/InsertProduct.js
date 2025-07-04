@@ -34,7 +34,7 @@ export default function InsertProduct() {
   setError("");
 
   try {
-    const res = await fetch("https://backend-5340.onrender.com/api/products/insertproduct", {
+    const res = await fetch("https://backend-eizz.onrender.com/api/products/insertproduct", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

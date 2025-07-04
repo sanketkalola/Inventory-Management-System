@@ -15,7 +15,7 @@ connectToMongo();
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'https://inventory-management-system-jt6k.onrender.com'
+    'https://inventory-management-system-zy51.onrender.com'
   ],
   // origin: (origin, callback) => {
   //   callback(null, true); // allow all origins dynamically
