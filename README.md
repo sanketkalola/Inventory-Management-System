@@ -4,7 +4,7 @@ A simple MERN project that lets the user insert, update, delete & get products f
 
 
 
-[Live Demo](https://inventory-management-system-jt6k.onrender.com)
+[Live Demo](https://inventory-management-system-zy51.onrender.com)
 
 ## To Run App:
 
